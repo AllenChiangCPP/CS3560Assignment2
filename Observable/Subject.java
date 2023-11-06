@@ -2,10 +2,11 @@ package Observable;
 
 import java.util.*;
 
-//Observer pattern dependent/subject
+//Observer pattern dependent/subject/observable
 public abstract class Subject {
 
        List<Observer> observers;
+       
        public Subject() {
               observers = new ArrayList<>();
        }

@@ -37,6 +37,8 @@ public class UserView extends JFrame {
               //follow control panel
               JPanel followControlPanel = new JPanel();
               followControlPanel.setLayout(new GridLayout(1, 2));
+
+              //Follow text field and button
               followText = new JTextField(16);
               followText.getDocument().addDocumentListener(textChange);
               followControlPanel.add(followText);
@@ -46,7 +48,7 @@ public class UserView extends JFrame {
               followControlPanel.add(followButton);
               this.add(followControlPanel);
 
-              //follow display panel
+              //followers display panel
               followDisplayPanel = new JPanel();
               followDisplayPanel.setLayout(new BoxLayout(followDisplayPanel, BoxLayout.PAGE_AXIS));
               drawFollowing(user.getFollowers());
@@ -55,6 +57,8 @@ public class UserView extends JFrame {
               //tweet panel
               JPanel tweetPanel = new JPanel();
               tweetPanel.setLayout(new GridLayout(1, 2));
+
+              //tweet text field and button
               tweetText = new JTextField(16);
               tweetText.getDocument().addDocumentListener(textChange);
               tweetPanel.add(tweetText);
@@ -89,6 +93,7 @@ public class UserView extends JFrame {
               }
        }
 
+       //function for drawing user's news feed
        public void drawFeed(Collection<Tweet> feed) {
               feedPanel.removeAll();
               JLabel feedLabel = new JLabel("News Feed:");
@@ -100,6 +105,7 @@ public class UserView extends JFrame {
               feedPanel.repaint();
        }
 
+       //function for drawing user's following list
        public void drawFollowing(List<User> followings) {
               followDisplayPanel.removeAll();
               JLabel followLabel = new JLabel("Current Following:");
@@ -115,7 +121,9 @@ public class UserView extends JFrame {
               followDisplayPanel.repaint();
        }
 
-       //ActionListener for each button
+       //ActionListener for each button clicks and user interaction
+
+       //follow action action listener
        private ActionListener actionFollow = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
@@ -131,6 +139,7 @@ public class UserView extends JFrame {
               }
        };
 
+       //tweet action listener
        private ActionListener actionTweet = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
@@ -142,7 +151,7 @@ public class UserView extends JFrame {
               }
        };
 
-       // Document listener for when text fields are empty or populated
+       // Document listener for tracking text field changes (follow and tweet input fields)
        private DocumentListener textChange = new DocumentListener() {
 
               @Override
@@ -162,7 +171,7 @@ public class UserView extends JFrame {
               
        };
 
-       // Window listener for when this view is closed
+       //Window listener for handling actions when user view window is closed
        private WindowListener windowClose = new WindowAdapter() {
               @Override
               public void windowClosing(WindowEvent event) {

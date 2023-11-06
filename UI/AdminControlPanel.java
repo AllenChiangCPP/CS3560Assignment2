@@ -15,7 +15,7 @@ import Visitor.VisitorAnalysis;
 import Visitor.VisitorNode;
 
 
-
+//AdminControlPanel. draws UI using java Swing and contains functionalities
 public class AdminControlPanel extends JFrame {
        
        private static AdminControlPanel instance;
@@ -57,11 +57,15 @@ public class AdminControlPanel extends JFrame {
               //add view panel (add user and add group)
               JPanel addPanel = new JPanel();
               addPanel.setLayout(new GridLayout(2, 2, 4, 4));
+
+              //add user text field and button
               userText = new JTextField(16);
               addPanel.add(userText);
               addUserButton = new JButton("Add User");
              addUserButton.addActionListener(actionAddUser);
               addPanel.add(addUserButton);
+
+              //add group text field and button
               groupText = new JTextField(16);
               addPanel.add(groupText);
               addGroupButton = new JButton("Add Group");
@@ -69,7 +73,7 @@ public class AdminControlPanel extends JFrame {
               addPanel.add(addGroupButton);
               controlPanel.add(addPanel);
 
-              //userView panel
+              //userView panel and button
               JPanel userViewPanel = new JPanel();
               userViewPanel.setLayout(new GridLayout(3, 1));
               userViewButton = new JButton("Open User View");
@@ -81,15 +85,23 @@ public class AdminControlPanel extends JFrame {
               //stats panel (user total, group total, message total, positive percentage)
               JPanel statsPanel = new JPanel();
               statsPanel.setLayout(new GridLayout(2, 2, 4, 4));
+
+              //show total users button
               showTotalUsersButton = new JButton("Show User Total");
               showTotalUsersButton.addActionListener(actionShowTotalUsers);
               statsPanel.add(showTotalUsersButton);
+
+              //show total groups button
               showTotalGroupsButton = new JButton("Show Group Total");
               showTotalGroupsButton.addActionListener(actionShowTotalGroups);
               statsPanel.add(showTotalGroupsButton);
+
+              //show total messages button
               showTotalMessagesButton = new JButton("Show Messages Total");
               showTotalMessagesButton.addActionListener(actionShowTotalMessages);
               statsPanel.add(showTotalMessagesButton);
+
+              //show positive percentage button
               showPositivePercentButton = new JButton("Show Positive Percentage");
               showPositivePercentButton.addActionListener(actionShowPositivePercent);
               statsPanel.add(showPositivePercentButton);
@@ -99,11 +111,11 @@ public class AdminControlPanel extends JFrame {
               this.setVisible(true);
        }
 
+       //getInstance method for implementing Singlton pattern, ensures one instance of AdminControlPanel is created
        public static AdminControlPanel getInstance() {
               if(instance == null) {
                   instance = new AdminControlPanel();
               }
-      
               return instance;
        }
 
@@ -115,6 +127,7 @@ public class AdminControlPanel extends JFrame {
               userViewButton.setEnabled(false);
        }
 
+       //addToGroup function for adding user to a created group or default root group
        private void addToGroup(UserComponent componentToAdd) {
               if(selectedUser instanceof UserGroup) {
                   ((UserGroup) selectedUser).add(componentToAdd);
@@ -127,6 +140,7 @@ public class AdminControlPanel extends JFrame {
               componentToAdd.accept(analysisVisitor);
           }
        
+       //constructs and refresehes tree display
        public void makeTree() {
               treePanel.removeAll();
               JLabel treeLabel = new JLabel("Tree View");
@@ -136,7 +150,9 @@ public class AdminControlPanel extends JFrame {
               treePanel.repaint();
        }
 
-       //ActionListeners for buttons
+       //ActionListeners for button clicks and user interaction
+
+       //Add User actionListener 
        private ActionListener actionAddUser = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
@@ -146,6 +162,7 @@ public class AdminControlPanel extends JFrame {
               }
        };
 
+       //Add Group actionListener 
        private ActionListener actionAddGroup = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
@@ -155,6 +172,7 @@ public class AdminControlPanel extends JFrame {
               }
        };
 
+       //Open user view actionListener
        private ActionListener actionOpenUserView = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
@@ -164,6 +182,7 @@ public class AdminControlPanel extends JFrame {
               }
        };
 
+       //Show total users actionListener
        private ActionListener actionShowTotalUsers = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
@@ -171,6 +190,7 @@ public class AdminControlPanel extends JFrame {
               }
        };
 
+       //show total groups actionListener
        private ActionListener actionShowTotalGroups = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
@@ -178,6 +198,7 @@ public class AdminControlPanel extends JFrame {
               }
        };
 
+       //show total messages actionListener
        private ActionListener actionShowTotalMessages = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
@@ -185,6 +206,7 @@ public class AdminControlPanel extends JFrame {
               }
        };
 
+       //show positive percentage action listener
        private ActionListener actionShowPositivePercent = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {

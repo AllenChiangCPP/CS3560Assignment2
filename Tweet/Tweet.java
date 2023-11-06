@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import Visitor.Node;
 import Visitor.VisitorNode; 
-
+//Tweet object, tweet message and functions for tracking Node of Visitor
 public class Tweet implements Node {
        private static int nextCreated = 1;
        private static int totalTweets = 0;
@@ -23,19 +23,13 @@ public class Tweet implements Node {
               this.message = message;
        }
 
+       //getter and setters
        public static int getTotalTweets() {
               return totalTweets;
        }
 
        public static int getPositivePercent() {
               return positivePercent;
-       }
-
-       public static void updatePositivePercent(boolean positive) {
-              if(positive) {
-                     positiveCount++;
-              }
-              positivePercent = (int)((double) positiveCount / totalTweets * 100);
        }
 
        public void incrementTotalTweets() {
@@ -58,6 +52,15 @@ public class Tweet implements Node {
               return message;
        }
 
+       //calculates and updates positive percentage
+       public static void updatePositivePercent(boolean positive) {
+              if(positive) {
+                     positiveCount++;
+              }
+              positivePercent = (int)((double) positiveCount / totalTweets * 100);
+       }
+
+       //Visitor patter, allows visitor to access tweet object and its message
        public void accept(VisitorNode visitor) {
               visitor.visit(this);
               visitor.visit(message);

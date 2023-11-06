@@ -5,6 +5,8 @@ import java.util.List;
 
 import Observable.Subject;
 
+//PostedTweets class manages a colleciton of Tweet objects
+//notifes observers when new tweet is posted
 public class PostedTweets extends Subject{
        List<Tweet> tweets;
        
