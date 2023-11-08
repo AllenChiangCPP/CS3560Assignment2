@@ -13,9 +13,9 @@ import Visitor.Node;
 public abstract class UserComponent implements Node{
        protected static int spacing = 0;
 
-       //colors for UI, highlights yellow when group or user is selected
+       //colors for UI, highlights dark gray when group or user is selected
        private static final Color TRANSPARENT = new Color(0, 0, 0);
-       private static final Color SELECTED = new Color(255, 255, 0);
+       private static final Color SELECTED = new Color(90, 90, 90);
 
        private String ID;
        private JLabel label;
@@ -50,13 +50,13 @@ public abstract class UserComponent implements Node{
                                           JLabel curSelectedLabel = selectedUser.getLabel(null);
                                           curSelectedLabel.setOpaque(false);
                                           curSelectedLabel.setBackground(TRANSPARENT);
-
                                    }
 
-                                   //selected user highlighted yellow
+                                   //selected user highlighted dark gray
                                    label.setOpaque(true);
                                    label.setBackground(SELECTED);
                                    AdminControlPanel.selectedUser = UserComponent.this;
+                                   
                                    //enable or disable user view in AdminControlPanel
                                    if(AdminControlPanel.selectedUser instanceof User) {
                                           AdminControlPanel.getInstance().enableUserView();

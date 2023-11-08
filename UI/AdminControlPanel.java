@@ -2,10 +2,10 @@ package UI;
 
 import javax.swing.*;
 
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
+import java.awt.Color;
 
 import Tweet.Tweet;
 import User.User;
@@ -36,17 +36,19 @@ public class AdminControlPanel extends JFrame {
        private UserGroup root;
 
        private AdminControlPanel() {
+              //default root UserGroup for treePanel
               root = new UserGroup("ROOT");
 
-              //frame
+              //Main frame for Admin Control Panel
               this.setTitle("MiniTwitter");
               this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-              this.setSize(1000, 1000);
+              this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
               this.setLayout(new GridLayout(1, 2));
 
-              //tree panel 
+              //tree panel for users and groups 
               treePanel = new JPanel();
               treePanel.setLayout(new BoxLayout(treePanel, BoxLayout.PAGE_AXIS));
+              treePanel.setBackground(Color.GRAY);
               this.add(treePanel);
               makeTree();
               
@@ -62,7 +64,7 @@ public class AdminControlPanel extends JFrame {
               userText = new JTextField(16);
               addPanel.add(userText);
               addUserButton = new JButton("Add User");
-             addUserButton.addActionListener(actionAddUser);
+              addUserButton.addActionListener(actionAddUser);
               addPanel.add(addUserButton);
 
               //add group text field and button
@@ -119,6 +121,7 @@ public class AdminControlPanel extends JFrame {
               return instance;
        }
 
+       //functions for enabling or disabling userview for userview button
        public void enableUserView() {
               userViewButton.setEnabled(true);
        }
@@ -128,6 +131,7 @@ public class AdminControlPanel extends JFrame {
        }
 
        //addToGroup function for adding user to a created group or default root group
+       //adds user to group if a group is selected, defaults to root otherwise
        private void addToGroup(UserComponent componentToAdd) {
               if(selectedUser instanceof UserGroup) {
                   ((UserGroup) selectedUser).add(componentToAdd);
@@ -135,12 +139,11 @@ public class AdminControlPanel extends JFrame {
               else {
                   root.add(componentToAdd);
               }
-      
               VisitorNode analysisVisitor = new VisitorAnalysis();
               componentToAdd.accept(analysisVisitor);
           }
        
-       //constructs and refresehes tree display
+       //constructs and refreshes tree display
        public void makeTree() {
               treePanel.removeAll();
               JLabel treeLabel = new JLabel("Tree View");
@@ -210,7 +213,7 @@ public class AdminControlPanel extends JFrame {
        private ActionListener actionShowPositivePercent = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
-              new StatisticWindow("Positive Percentage: " + Tweet.getPositivePercent() + "%");
+                     new StatisticWindow("Positive Percentage: " + Tweet.getPositivePercent() + "%");
               }
        };
 }

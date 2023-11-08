@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 import java.util.Collection;
 import java.util.List;
+import java.awt.Color;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -14,6 +15,7 @@ import User.User;
 import Visitor.VisitorAnalysis;
 import Visitor.VisitorNode;
 
+//User view panel 
 public class UserView extends JFrame {
     
        private User user;
@@ -24,13 +26,14 @@ public class UserView extends JFrame {
        private JButton followButton;
        private JButton tweetButton;
 
+       //User constructor
        public UserView(User user) {
               this.user = user;
               user.bindUserView(this);
 
               //frame 
               this.setTitle(user.getID() + " User View");
-              this.setSize(600, 500);
+              this.setSize(500, 500);
               this.setLayout(new GridLayout(0, 1));
               this.addWindowListener(windowClose);
 
@@ -50,6 +53,7 @@ public class UserView extends JFrame {
 
               //followers display panel
               followDisplayPanel = new JPanel();
+              followDisplayPanel.setBackground(Color.GRAY);
               followDisplayPanel.setLayout(new BoxLayout(followDisplayPanel, BoxLayout.PAGE_AXIS));
               drawFollowing(user.getFollowers());
               this.add(followDisplayPanel);
@@ -70,6 +74,7 @@ public class UserView extends JFrame {
 
               //newsFeed panel
               feedPanel = new JPanel();
+              feedPanel.setBackground(Color.GRAY);
               feedPanel.setLayout(new BoxLayout(feedPanel, BoxLayout.PAGE_AXIS));
               drawFeed(user.getOrderedNewsFeedMsgs());
               this.add(feedPanel);
@@ -77,45 +82,47 @@ public class UserView extends JFrame {
               this.setVisible(true);
        }
 
+       //textChanged method for responding to changes in text fields based on if they are empty or not
+       //enables or disables followButton or TweetButton if they are emty or not
        private void textChanged() {
               if(followText.getText().isEmpty()) {
-              followButton.setEnabled(false);
+                     followButton.setEnabled(false);
               }
               else {
-              followButton.setEnabled(true);
+                     followButton.setEnabled(true);
               }
 
               if(tweetText.getText().isEmpty()) {
-              tweetButton.setEnabled(false);
+                     tweetButton.setEnabled(false);
               }
               else {
-              tweetButton.setEnabled(true);
+                     tweetButton.setEnabled(true);
               }
        }
 
-       //function for drawing user's news feed
+       //function for drawing user's news feed using hte feed list
        public void drawFeed(Collection<Tweet> feed) {
               feedPanel.removeAll();
               JLabel feedLabel = new JLabel("News Feed:");
               feedPanel.add(feedLabel);
               for(Tweet curTweet : feed) {
-              feedPanel.add(new JLabel(curTweet.getName() + " : " + curTweet.getMessage()));
+                     feedPanel.add(new JLabel(curTweet.getName() + " : " + curTweet.getMessage()));
               }
               feedPanel.revalidate();
               feedPanel.repaint();
        }
 
-       //function for drawing user's following list
+       //function for drawing user's following list using followings list
        public void drawFollowing(List<User> followings) {
               followDisplayPanel.removeAll();
               JLabel followLabel = new JLabel("Current Following:");
               followDisplayPanel.add(followLabel);
               for(User following : followings) {
-              String followingId = following.getID();
+                     String followingId = following.getID();
 
-              if(!followingId.equals(user.getID())) {
-                     followDisplayPanel.add(new JLabel(" - " + following.getID()));
-              }
+                     if(!followingId.equals(user.getID())) {
+                            followDisplayPanel.add(new JLabel(" - " + following.getID()));
+                     }
               }
               followDisplayPanel.revalidate();
               followDisplayPanel.repaint();
@@ -143,30 +150,30 @@ public class UserView extends JFrame {
        private ActionListener actionTweet = new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent event) {
-              Tweet tweet = new Tweet(user.getID(), tweetText.getText());
-              tweetText.setText("");
-              user.postTweet(tweet);
-              VisitorNode analysisVisitor = new VisitorAnalysis();
-              tweet.accept(analysisVisitor);
+                     Tweet tweet = new Tweet(user.getID(), tweetText.getText());
+                     tweetText.setText("");
+                     user.postTweet(tweet);
+                     VisitorNode analysisVisitor = new VisitorAnalysis();
+                     tweet.accept(analysisVisitor);
               }
        };
 
-       // Document listener for tracking text field changes (follow and tweet input fields)
+       //Document listener for tracking text field changes for follow and tweet 
        private DocumentListener textChange = new DocumentListener() {
-
+              //triggered when text is inserted
               @Override
               public void insertUpdate(DocumentEvent event) {
-              textChanged();
+                     textChanged();
               }
-
+              //triggered when text is removed
               @Override
               public void removeUpdate(DocumentEvent event) {
-              textChanged();
+                     textChanged();
               }
-
+              //triggered when changes have been made
               @Override
               public void changedUpdate(DocumentEvent event) {
-              textChanged();
+                     textChanged();
               }
               
        };
@@ -175,7 +182,7 @@ public class UserView extends JFrame {
        private WindowListener windowClose = new WindowAdapter() {
               @Override
               public void windowClosing(WindowEvent event) {
-              user.unbindUserView();
+                     user.unbindUserView();
               }
        };
 

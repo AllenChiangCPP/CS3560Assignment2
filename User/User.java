@@ -57,10 +57,9 @@ public class User extends UserComponent implements Observer {
               return orderedNewsFeed;
        }
 
-       //method for finding user based on their ID
+       //method for finding user based on their ID, searches through allUsers list using user's ID
        public static User getUserByID(String ID) {
               User userFound = null;
-
               for(User user : allUsers) {
                      if(user.getID().equals(ID) && userFound == null) {
                             userFound = user;
@@ -85,7 +84,6 @@ public class User extends UserComponent implements Observer {
               user.postedTweets.addObserver(this);
               followingList.add(user);
               user.followerList.add(this);
-
               if(currentUser != null) {
                      currentUser.drawFollowing(followingList);
               }
@@ -107,7 +105,6 @@ public class User extends UserComponent implements Observer {
                      List<Tweet> tweetsByUser = followedUser.postedTweets.getTweets();
                      for(Tweet tweet : tweetsByUser) {
                             String currentTweetID = tweet.getID();
-
                             if(!newsFeed.containsKey(currentTweetID)) {
                                    newsFeed.put(currentTweetID, tweet);
                             }

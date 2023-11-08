@@ -28,9 +28,7 @@ public class VisitorAnalysis implements VisitorNode{
        @Override
        public void visit(String message) {
               message = message.toLowerCase(); //converts message to lowercase to account for case differences
-              if(message.contains("good")
-                     || message.contains("great")
-                     || message.contains("excellent"))
+              if(message.contains("good") || message.contains("great") || message.contains("excellent"))
               {
                      Tweet.updatePositivePercent(true);
               }

@@ -16,6 +16,7 @@ public class Tweet implements Node {
        private String name;
        private String message;
        
+       //Tweet constructor
        public Tweet(String name, String message) {
               orderCreated = nextCreated++;
               ID = UUID.randomUUID().toString();
@@ -52,7 +53,7 @@ public class Tweet implements Node {
               return message;
        }
 
-       //calculates and updates positive percentage
+       //calculates and updates positive percentage if positive message found
        public static void updatePositivePercent(boolean positive) {
               if(positive) {
                      positiveCount++;

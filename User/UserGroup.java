@@ -7,7 +7,9 @@ import Visitor.VisitorNode;
 
 //userGroup class extends UserComponent
 public class UserGroup extends UserComponent{
-       private static int totalGroups = 1;
+       //default count is 1 due to root user gorup
+       private static int totalGroups = 1; 
+
        //holds user groups or users
        private List<UserComponent> userComponentList;
 
@@ -39,6 +41,7 @@ public class UserGroup extends UserComponent{
               spacing -= 2;
        }
 
+       //method for incrementing total # of groups
        public void incementGroupTotal() {
               totalGroups++;
        }
