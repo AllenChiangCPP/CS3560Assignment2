@@ -32,6 +32,8 @@ public class AdminControlPanel extends JFrame {
        private JButton showTotalGroupsButton;
        private JButton showTotalMessagesButton;
        private JButton showPositivePercentButton;
+       private JButton IDVerificationButton;
+       private JButton lastUpdatedUserButton;
        
        private UserGroup root;
 
@@ -75,14 +77,28 @@ public class AdminControlPanel extends JFrame {
               addPanel.add(addGroupButton);
               controlPanel.add(addPanel);
 
-              //userView panel and button
+              //userView, validate ID, and show last updated user panel and button
               JPanel userViewPanel = new JPanel();
               userViewPanel.setLayout(new GridLayout(3, 1));
+
+              //open user view button
               userViewButton = new JButton("Open User View");
               userViewButton.addActionListener(actionOpenUserView);
               userViewPanel.add(userViewButton);
+
+              //validate ID button
+              IDVerificationButton = new JButton("Verify IDs");
+              userViewPanel.add(IDVerificationButton);
+
+              //validate ID button
+              lastUpdatedUserButton = new JButton("Find Last Updated User");
+              userViewPanel.add(lastUpdatedUserButton);
+
               controlPanel.add(userViewPanel);
               disableUserView();
+
+              
+              
 
               //stats panel (user total, group total, message total, positive percentage)
               JPanel statsPanel = new JPanel();
@@ -108,6 +124,8 @@ public class AdminControlPanel extends JFrame {
               showPositivePercentButton.addActionListener(actionShowPositivePercent);
               statsPanel.add(showPositivePercentButton);
               controlPanel.add(statsPanel);
+
+
 
               this.add(controlPanel);
               this.setVisible(true);
