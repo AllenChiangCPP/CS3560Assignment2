@@ -117,7 +117,7 @@ public class User extends UserComponent implements Observer {
                             }
                      }
               }
-
+              lastUpdateTime = System.currentTimeMillis(); //update last update time, so last updated user affected by tweets posted
               currentUser.drawFeed(getOrderedNewsFeedMsgs());
        }
 
