@@ -91,8 +91,9 @@ public class AdminControlPanel extends JFrame {
               IDVerificationButton.addActionListener(actionVerifyIDs);
               userViewPanel.add(IDVerificationButton);
 
-              //validate ID button
+              //find last updated user button
               lastUpdatedUserButton = new JButton("Find Last Updated User");
+              lastUpdatedUserButton.addActionListener(actionFindLastUser);
               userViewPanel.add(lastUpdatedUserButton);
 
               controlPanel.add(userViewPanel);
@@ -248,6 +249,21 @@ public class AdminControlPanel extends JFrame {
                             verificationMsg = "WARNING. There are invalid IDs.";
                      }
                      JOptionPane.showMessageDialog(AdminControlPanel.this, verificationMsg);
+              }
+       };
+
+       private ActionListener actionFindLastUser = new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                     String foundUserMessage;
+                     User lastUpdatedUser = User.getLastUpdatedUser();
+                     if(lastUpdatedUser != null) {
+                            foundUserMessage = "Last Updated User: " + User.getLastUpdatedUser().getID();
+                     }
+                     else {
+                            foundUserMessage = "No users found."
+;                     }
+                     JOptionPane.showMessageDialog(AdminControlPanel.this, foundUserMessage);
               }
        };
 }

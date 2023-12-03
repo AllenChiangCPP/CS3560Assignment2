@@ -22,6 +22,8 @@ public class User extends UserComponent implements Observer {
        
        private Map<String, Tweet> newsFeed;
 
+       private long lastUpdateTime;
+
        //user constructor, uses constructor of superclass userComponent
        public User(String ID) {
               super(ID);
@@ -31,6 +33,7 @@ public class User extends UserComponent implements Observer {
               postedTweets = new PostedTweets();
               newsFeed = new HashMap<>();
               followTweeter(this); // User follows itself to see own tweets
+              lastUpdateTime = getCreationTime();
        }
 
        //getters and setters
@@ -49,6 +52,10 @@ public class User extends UserComponent implements Observer {
        public void incrementTotalUsers() {
               userTotal++;
        }
+
+       public long getLastUpdateTime() {
+              return lastUpdateTime;
+          }
 
        //method for getting ordered news feed messages
        public Collection<Tweet> getOrderedNewsFeedMsgs() {
@@ -113,6 +120,25 @@ public class User extends UserComponent implements Observer {
 
               currentUser.drawFeed(getOrderedNewsFeedMsgs());
        }
+
+       //method for gettign last updated user, goes through 
+       public static User getLastUpdatedUser() {
+              User lastUpdatedUser = null;
+              long currentLastUpdateTime = 0;
+
+              for(User user : allUsers) {
+              long currentUserUpdateTime = user.getLastUpdateTime();
+
+                     if(currentUserUpdateTime > currentLastUpdateTime) {
+                            currentLastUpdateTime = currentUserUpdateTime;
+                            lastUpdatedUser = user;
+                     }
+        }
+        
+        return lastUpdatedUser;
+       }
+
+
 
        //ovveride method from VisitorNode
        @Override 
