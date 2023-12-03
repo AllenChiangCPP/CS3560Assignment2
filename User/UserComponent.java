@@ -23,6 +23,7 @@ public abstract class UserComponent implements Node{
 
        private String ID;
        private JLabel label;
+       private long creationTime;
 
        //list for storing all IDs, for Id verification
        private static List<String> IDList = new ArrayList<>();
@@ -30,6 +31,7 @@ public abstract class UserComponent implements Node{
        //userComponent selector
        public UserComponent(String ID) {
               setID(ID);
+              creationTime = System.currentTimeMillis();
        }
 
        //getter and setter
@@ -40,6 +42,10 @@ public abstract class UserComponent implements Node{
 
        public String getID() {
               return ID;
+       }
+
+       public long getCreationTime() {
+              return creationTime;
        }
 
        //method for getting JLabel from specifed label text
