@@ -88,6 +88,7 @@ public class AdminControlPanel extends JFrame {
 
               //validate ID button
               IDVerificationButton = new JButton("Verify IDs");
+              IDVerificationButton.addActionListener(actionVerifyIDs);
               userViewPanel.add(IDVerificationButton);
 
               //validate ID button
@@ -232,6 +233,21 @@ public class AdminControlPanel extends JFrame {
               @Override
               public void actionPerformed(ActionEvent event) {
                      new StatisticWindow("Positive Percentage: " + Tweet.getPositivePercent() + "%");
+              }
+       };
+
+       private ActionListener actionVerifyIDs = new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                     String verificationMsg;
+                     boolean isValid = UserComponent.validateIDs();
+                     if(isValid) {
+                            verificationMsg = "All IDs are valid.";
+                     }
+                     else {
+                            verificationMsg = "WARNING. There are invalid IDs.";
+                     }
+                     JOptionPane.showMessageDialog(AdminControlPanel.this, verificationMsg);
               }
        };
 }

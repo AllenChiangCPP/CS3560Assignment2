@@ -6,6 +6,10 @@ import java.awt.Color;
 
 import javax.swing.*;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import UI.AdminControlPanel;
 import Visitor.Node;
 
@@ -20,14 +24,18 @@ public abstract class UserComponent implements Node{
        private String ID;
        private JLabel label;
 
+       //list for storing all IDs, for Id verification
+       private static List<String> IDList = new ArrayList<>();
+
        //userComponent selector
        public UserComponent(String ID) {
-              this.ID = ID;
+              setID(ID);
        }
 
        //getter and setter
        public void setID(String ID) {
               this.ID = ID;
+              IDList.add(ID);
        }
 
        public String getID() {
@@ -69,6 +77,17 @@ public abstract class UserComponent implements Node{
                      });
               }
               return label;
+       }
+
+       //method for validating Ids, returns true if Id is valid, false otherwise
+       public static boolean validateIDs() {
+              boolean isValid = true;
+              for(String currentID : IDList) {
+                     if(currentID.contains(" ") || (IDList.indexOf(currentID) != IDList.lastIndexOf(currentID))) {
+                            isValid = false;
+                     }
+              }
+              return isValid;
        }
 
        //abstract method for displaying user component in a panel
