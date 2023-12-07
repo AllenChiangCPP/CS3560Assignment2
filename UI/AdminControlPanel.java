@@ -32,6 +32,8 @@ public class AdminControlPanel extends JFrame {
        private JButton showTotalGroupsButton;
        private JButton showTotalMessagesButton;
        private JButton showPositivePercentButton;
+       private JButton IDVerificationButton;
+       private JButton lastUpdatedUserButton;
        
        private UserGroup root;
 
@@ -75,14 +77,30 @@ public class AdminControlPanel extends JFrame {
               addPanel.add(addGroupButton);
               controlPanel.add(addPanel);
 
-              //userView panel and button
+              //userView, validate ID, and show last updated user panel and button
               JPanel userViewPanel = new JPanel();
               userViewPanel.setLayout(new GridLayout(3, 1));
+
+              //open user view button
               userViewButton = new JButton("Open User View");
               userViewButton.addActionListener(actionOpenUserView);
               userViewPanel.add(userViewButton);
+
+              //validate ID button
+              IDVerificationButton = new JButton("Verify IDs");
+              IDVerificationButton.addActionListener(actionVerifyIDs);
+              userViewPanel.add(IDVerificationButton);
+
+              //find last updated user button
+              lastUpdatedUserButton = new JButton("Find Last Updated User");
+              lastUpdatedUserButton.addActionListener(actionFindLastUser);
+              userViewPanel.add(lastUpdatedUserButton);
+
               controlPanel.add(userViewPanel);
               disableUserView();
+
+              
+              
 
               //stats panel (user total, group total, message total, positive percentage)
               JPanel statsPanel = new JPanel();
@@ -108,6 +126,8 @@ public class AdminControlPanel extends JFrame {
               showPositivePercentButton.addActionListener(actionShowPositivePercent);
               statsPanel.add(showPositivePercentButton);
               controlPanel.add(statsPanel);
+
+
 
               this.add(controlPanel);
               this.setVisible(true);
@@ -214,6 +234,36 @@ public class AdminControlPanel extends JFrame {
               @Override
               public void actionPerformed(ActionEvent event) {
                      new StatisticWindow("Positive Percentage: " + Tweet.getPositivePercent() + "%");
+              }
+       };
+
+       private ActionListener actionVerifyIDs = new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                     String verificationMsg;
+                     boolean isValid = UserComponent.validateIDs();
+                     if(isValid) {
+                            verificationMsg = "All IDs are valid.";
+                     }
+                     else {
+                            verificationMsg = "WARNING. There are invalid IDs.";
+                     }
+                     JOptionPane.showMessageDialog(AdminControlPanel.this, verificationMsg);
+              }
+       };
+
+       private ActionListener actionFindLastUser = new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent event) {
+                     String foundUserMessage;
+                     User lastUpdatedUser = User.getLastUpdatedUser();
+                     if(lastUpdatedUser != null) {
+                            foundUserMessage = "Last Updated User: " + User.getLastUpdatedUser().getID();
+                     }
+                     else {
+                            foundUserMessage = "No users found."
+;                     }
+                     JOptionPane.showMessageDialog(AdminControlPanel.this, foundUserMessage);
               }
        };
 }

@@ -2,9 +2,11 @@ package UI;
 
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.List;
 import java.awt.Color;
+import java.util.Date;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -21,10 +23,12 @@ public class UserView extends JFrame {
        private User user;
        JPanel followDisplayPanel;
        private JPanel feedPanel;
+       private JPanel timeInfoPanel;
        private JTextField followText;
        private JTextField tweetText;
        private JButton followButton;
        private JButton tweetButton;
+       
 
        //User constructor
        public UserView(User user) {
@@ -36,6 +40,12 @@ public class UserView extends JFrame {
               this.setSize(500, 500);
               this.setLayout(new GridLayout(0, 1));
               this.addWindowListener(windowClose);
+
+              //time info panel
+              timeInfoPanel = new JPanel();
+              timeInfoPanel.setLayout(new BoxLayout(timeInfoPanel, BoxLayout.PAGE_AXIS));
+              drawtimeInfo();
+              this.add(timeInfoPanel);
 
               //follow control panel
               JPanel followControlPanel = new JPanel();
@@ -110,6 +120,23 @@ public class UserView extends JFrame {
               }
               feedPanel.revalidate();
               feedPanel.repaint();
+       }
+
+       //method for displaying time of creation and update time of a user
+       public void drawtimeInfo() {
+              timeInfoPanel.removeAll();
+              SimpleDateFormat sdf = new SimpleDateFormat("H:mm:ss.SSSS");
+              long creationTime = user.getCreationTime();
+              long lastUpdateTime = user.getLastUpdateTime();
+              Date creationDate = new Date(creationTime);
+              Date lastUpdateDate = new Date(lastUpdateTime);
+              JLabel creationTimeLabel = new JLabel("User Creation Time: " + sdf.format(creationDate));
+              JLabel updateTimeLabel = new JLabel("User Last Update Time: " + sdf.format(lastUpdateDate));
+              timeInfoPanel.add(creationTimeLabel);
+              timeInfoPanel.add(updateTimeLabel);
+              timeInfoPanel.revalidate();
+              timeInfoPanel.repaint();
+
        }
 
        //function for drawing user's following list using followings list
