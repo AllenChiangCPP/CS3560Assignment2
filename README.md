@@ -22,7 +22,7 @@ When Driver.java is run, Creates the admin control panel which allows users and 
 -VSCode: Top right button to compile run Driver.java file in Visual Studio Code.<br>
 -Command line: "javac Driver.java" compiles Driver.java and all other files needed to run and create Driver.class file. "java Driver" runs the Driver code.
 
-**Java Design Patterns Used**<br>   
+**Java Design Patterns Used** <br>
 -Singleton Pattern: (AdminControlPanel.java) Singleton pattern is used in AdminControlPanel.java with the getInstance() method, to ensure there is only one instance fo the AdminContorlPanel active. <br>
 -Composite Pattern: (UserComponent.java, User.java, UserGroup.java) Composite pattern is used in UserComponent.java, User.java, and UserGroup.java for the root hierarchies and tree view for organinzing groups and their users. <br>
 -Observer Pattern: (PostedTweets.java, User.java) Observer Pattern is used in PostedTweets.java and User.java, where a User object acts as an observer and PostedTweets acts as a subject to be observed. PostedTweets notifies the subject User object when new tweets are posted.<br>
